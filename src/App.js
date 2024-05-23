@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactGA from 'react-ga4';
 import { Container, TextField, Button, Typography, Box, Grid, Link } from '@mui/material';
 import Logo from './Logo';
 import './App.css'; // Import the new CSS file
@@ -41,6 +42,11 @@ function App() {
     getLocation();
   }, []);
 
+  useEffect(() => {
+    // Track the initial page view
+    ReactGA.send({ hitType: 'pageview', page: window.location.pathname + window.location.search });
+  }, []);
+
   const calculateAdjustedTotal = (drinks) => {
     const temp = parseFloat(currentTemp);
     if (isNaN(temp) || isNaN(drinks)) {
@@ -53,6 +59,13 @@ function App() {
   };
 
   const handleDrinkButtonClick = (value) => {
+    // Track the button click event
+    ReactGA.event({
+      category: 'User',
+      action: 'Clicked Drink Button',
+      label: `Drink Button ${value}`,
+    });
+
     setDrinksConsumed(value);
     calculateAdjustedTotal(value);
     setShowCustomInput(false);
@@ -88,22 +101,20 @@ function App() {
         <Typography variant="h6" gutterBottom mt={2}>
           How many drinks have you had?
         </Typography>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} justifyContent="center">
           {[...Array(10).keys()].map((_, index) => (
-            <Grid item xs={4} sm={2} key={index}>
+            <Grid item key={index}>
               <Button
                 className="drink-button"
-                fullWidth
                 onClick={() => handleDrinkButtonClick(index + 1)}
               >
                 {index + 1}
               </Button>
             </Grid>
           ))}
-          <Grid item xs={4} sm={2}>
+          <Grid item>
             <Button
               className="other"
-              fullWidth
               onClick={() => setShowCustomInput(true)}
             >
               Other
@@ -127,12 +138,12 @@ function App() {
         )}
         {adjustedTotal !== null && (
           <>
-            <Typography variant="h4" mt={2}>
+            <Typography variant="h6" mt={2}>
               Adjusted Summer Drink Total: {adjustedTotal.toFixed(2)}
             </Typography>
             <Typography variant="body2" mt={2}>
               The theorem used to calculate this was peer reviewed following a rigorous academic study which can be found here: 
-              <Link href="https://www.instagram.com/reel/C7Rh1xQuBRS/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener">
+              <Link href="URL_TO_SOURCE" target="_blank" rel="noopener">
                 Pythagoras Beerum
               </Link>
             </Typography>
