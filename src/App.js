@@ -143,7 +143,7 @@ function App() {
             </Typography>
             <Typography variant="body2" mt={2}>
               The theorem used to calculate this was peer reviewed following a rigorous academic study which can be found here: 
-              <Link href="URL_TO_SOURCE" target="_blank" rel="noopener">
+              <Link href="https://www.instagram.com/reel/C7Rh1xQuBRS/?utm_source=ig_web_copy_link" target="_blank" rel="noopener">
                 Pythagoras Beerum
               </Link>
             </Typography>
