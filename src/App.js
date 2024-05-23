@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+// src/App.js
+import React, { useState } from 'react';  // Import useState from React
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import Logo from './Logo'; // Import the Logo component
 
 function App() {
   const [currentTemp, setCurrentTemp] = useState('');
@@ -21,6 +23,7 @@ function App() {
   return (
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+        <Logo /> {/* Add the Logo component here */}
         <Typography variant="h4" gutterBottom>
           Summer Drinks Calculator
         </Typography>
