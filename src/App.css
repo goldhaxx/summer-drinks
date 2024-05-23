@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   padding: 20px;
   border-radius: 10px;
@@ -21,18 +21,41 @@ body {
 }
 
 h4 {
-  color: #ffae00;
+  color: #FF8C00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-button {
+button.drink-button,
+button.other {
   margin: 5px;
+  background-color: #00CED1 !important; /* Cyan */
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important; /* Rounded corners */
+  width: 45px !important; /* Reduced size */
+  height: 40px !important; /* Make square */
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+button.drink-button:hover,
+button.other:hover {
+  background-color: hsl(28, 100%, 50%) !important; /* Light Sky Blue */
 }
 
 button.other {
-  background-color: #FF8C00;
-  color: white;
+  background-color: #FF1493 !important; /* Deep Pink */
 }
 
 button.other:hover {
-  background-color: #FFA500;
+  background-color: #FF69B4 !important; /* Hot Pink */
+}
+
+a {
+  color: #FF8C00;
+}
+
+a:hover {
+  color: #FFA500;
 }

@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, TextField, Button, Typography, Box, Grid } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Grid, Link } from '@mui/material';
 import Logo from './Logo';
 import './App.css'; // Import the new CSS file
 
@@ -86,14 +86,13 @@ function App() {
           />
         )}
         <Typography variant="h6" gutterBottom mt={2}>
-          Select Number of Drinks:
+          How many drinks have you had?
         </Typography>
         <Grid container spacing={1}>
           {[...Array(10).keys()].map((_, index) => (
             <Grid item xs={4} sm={2} key={index}>
               <Button
-                variant="outlined"
-                color="primary"
+                className="drink-button"
                 fullWidth
                 onClick={() => handleDrinkButtonClick(index + 1)}
               >
@@ -103,10 +102,8 @@ function App() {
           ))}
           <Grid item xs={4} sm={2}>
             <Button
-              variant="outlined"
-              color="secondary"
-              fullWidth
               className="other"
+              fullWidth
               onClick={() => setShowCustomInput(true)}
             >
               Other
@@ -116,7 +113,7 @@ function App() {
         {showCustomInput && (
           <>
             <Typography variant="h6" gutterBottom mt={2}>
-              Enter Number of Drinks:
+              More than 10? Legend.
             </Typography>
             <TextField
               label="Number of Drinks Consumed"
@@ -129,9 +126,17 @@ function App() {
           </>
         )}
         {adjustedTotal !== null && (
-          <Typography variant="h6" mt={2}>
-            Adjusted Summer Drink Total: {adjustedTotal.toFixed(2)}
-          </Typography>
+          <>
+            <Typography variant="h4" mt={2}>
+              Adjusted Summer Drink Total: {adjustedTotal.toFixed(2)}
+            </Typography>
+            <Typography variant="body2" mt={2}>
+              The theorem used to calculate this was peer reviewed following a rigorous academic study which can be found here: 
+              <Link href="https://www.instagram.com/reel/C7Rh1xQuBRS/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener">
+                Pythagoras Beerum
+              </Link>
+            </Typography>
+          </>
         )}
       </Box>
     </Container>
