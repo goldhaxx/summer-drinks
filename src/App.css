@@ -25,6 +25,11 @@ h4 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+h6 {
+  color: #FF8C00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 button.drink-button,
 button.other {
   margin: 5px;
