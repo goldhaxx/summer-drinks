@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, TextField, Button, Typography, Box, Grid } from '@mui/material';
 import Logo from './Logo';
+import './App.css'; // Import the new CSS file
 
 function App() {
   const [currentTemp, setCurrentTemp] = useState('');
@@ -64,7 +65,7 @@ function App() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container className="container" maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
         <Logo />
         <Typography variant="h4" gutterBottom>
@@ -105,6 +106,7 @@ function App() {
               variant="outlined"
               color="secondary"
               fullWidth
+              className="other"
               onClick={() => setShowCustomInput(true)}
             >
               Other
