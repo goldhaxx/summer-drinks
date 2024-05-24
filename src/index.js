@@ -6,7 +6,7 @@ import App from './App';
 import './index.css';
 
 // Initialize Google Analytics 4
-ReactGA.initialize('G-QHLK36HFG7');
+ReactGA.initialize('G-ZYVKSQD3FE');
 
 ReactDOM.render(
   <React.StrictMode>
