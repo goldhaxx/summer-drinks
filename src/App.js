@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactGA from 'react-ga4';
 import { Container, TextField, Button, Typography, Box, Grid, Link } from '@mui/material';
@@ -12,6 +12,11 @@ function App() {
   const [adjustedTotal, setAdjustedTotal] = useState(null);
   const [loadingTemp, setLoadingTemp] = useState(false);
   const [showCustomInput, setShowCustomInput] = useState(false);
+
+  const focusStartTime = useRef(null);
+  const totalFocusTime = useRef(0);
+  const blurStartTime = useRef(null);
+  const totalBlurTime = useRef(0);
 
   useEffect(() => {
     const getLocation = () => {
@@ -45,7 +50,57 @@ function App() {
   useEffect(() => {
     // Track the initial page view
     ReactGA.send({ hitType: 'pageview', page: window.location.pathname + window.location.search });
+
+    // Set initial focus start time if the window is already in focus
+    if (document.hasFocus()) {
+      focusStartTime.current = Date.now();
+    }
+
+    const handleFocus = () => {
+      if (blurStartTime.current) {
+        totalBlurTime.current += Date.now() - blurStartTime.current;
+        blurStartTime.current = null;
+      }
+      focusStartTime.current = Date.now();
+    };
+
+    const handleBlur = () => {
+      if (focusStartTime.current) {
+        totalFocusTime.current += Date.now() - focusStartTime.current;
+        focusStartTime.current = null;
+      }
+      blurStartTime.current = Date.now();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+
+      // Report the total focus and blur times
+      if (focusStartTime.current) {
+        totalFocusTime.current += Date.now() - focusStartTime.current;
+      }
+      if (blurStartTime.current) {
+        totalBlurTime.current += Date.now() - blurStartTime.current;
+      }
+
+      ReactGA.event({
+        category: 'Session',
+        action: 'Window Focus Time',
+        value: totalFocusTime.current
+      });
+
+      ReactGA.event({
+        category: 'Session',
+        action: 'Window Blur Time',
+        value: totalBlurTime.current
+      });
+    };
   }, []);
+  
 
   const calculateAdjustedTotal = (drinks) => {
     const temp = parseFloat(currentTemp);
